@@ -14,10 +14,35 @@
 			<option *ngFor="let m of models" value="{{ m.id }}">{{ m.name }}</option>
 		</select>
 	</div>
+
+	<p>Registration status</p>
+	<label for="registered" class="radio-inline">
+		<input id="registered" name="isRegistered" type="radio"> Registered
+	</label>
+	<label for="notRegistered" class="radio-inline">
+		<input id="notRegistered" name="isRegistered" type="radio"> Not Registered
+	</label>
+
 	<h3>Features</h3>
 	<div class="checkbox" *ngFor="let f of features">
 		<label for="feature{{ f.id }}">
 			<input type="checkbox" id="feature{{ f.id }}">{{ f.name }}
 		</label>
 	</div>
+
+	<h3>Contact</h3>
+	<div class="form-group">
+		<label for="contactName">Name</label>
+		<input id="contactName" type="text" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="contactPhone">Phone</label>
+		<input id="contactPhone" type="text" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="contactEmail">Email</label>
+		<input id="contactEmail" type="text" class="form-control">
+	</div>
+
+	<button class="btn btn-primary">Save</button>
 </form>
