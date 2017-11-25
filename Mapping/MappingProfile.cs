@@ -7,6 +7,7 @@ namespace app.Mapping {
 		public MappingProfile() {
 			CreateMap<Make, MakeResource>();
 			CreateMap<Model, ModelResource>();
+			CreateMap<Feature, FeatureResource>();
 		}
 	}
 }
