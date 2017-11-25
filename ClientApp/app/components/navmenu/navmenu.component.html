@@ -16,6 +16,11 @@
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
+				</li>
+				<li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/vehicles/new']">
+                        <span class='glyphicon glyphicon-plus'></span> New Vehicle
+                    </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/counter']">
