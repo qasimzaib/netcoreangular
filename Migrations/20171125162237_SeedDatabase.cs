@@ -25,8 +25,7 @@ namespace app.Migrations {
 		}
 
 		protected override void Down(MigrationBuilder migrationBuilder) {
-			migrationBuilder.Sql("DELETE FROM Makes");
-			migrationBuilder.Sql("DELETE FROM Models");
+			migrationBuilder.Sql("DELETE FROM Makes WHERE Name IN ('Toyota', 'Honda', 'Suzuki')");
 		}
 	}
 }
