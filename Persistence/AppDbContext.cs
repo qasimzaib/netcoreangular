@@ -1,3 +1,4 @@
+using app.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Persistence {
@@ -5,5 +6,7 @@ namespace app.Persistence {
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
 			
 		}
+
+		public DbSet<Make> Makes { get; set; }
 	}
 }
