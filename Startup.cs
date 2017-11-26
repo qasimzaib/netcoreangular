@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using app.Interfaces;
+using app.Persistence.Repositories;
 
 namespace app {
 	public class Startup {
@@ -21,6 +23,7 @@ namespace app {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			services.AddScoped<IVehicleRepository, VehicleRepository>();
 			services.AddAutoMapper();
 			services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 			services.AddMvc();
