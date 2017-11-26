@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using app.Controllers.Resources;
-using app.Models;
+using app.Core.Models;
 using AutoMapper;
 
 namespace app.Mapping {

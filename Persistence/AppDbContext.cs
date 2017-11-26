@@ -1,4 +1,4 @@
-using app.Models;
+using app.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Persistence {

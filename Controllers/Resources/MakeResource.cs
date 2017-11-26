@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using app.Models;
+using app.Core.Models;
 
 namespace app.Controllers.Resources {
 	public class MakeResource : KeyValuePairResource {

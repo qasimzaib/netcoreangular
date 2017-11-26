@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using app.Controllers.Resources;
-using app.Models;
+using app.Core.Models;
 using app.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;

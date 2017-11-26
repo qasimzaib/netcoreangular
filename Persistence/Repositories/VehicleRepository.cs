@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using app.Interfaces;
-using app.Models;
+using app.Core.Models;
+using app.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Persistence.Repositories {

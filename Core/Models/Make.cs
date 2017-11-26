@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace app.Models {
+namespace app.Core.Models {
 	[Table("Makes")]
     public class Make {
         public int Id { get; set; }

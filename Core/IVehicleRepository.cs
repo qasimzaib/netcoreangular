@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using app.Models;
+using app.Core.Models;
 
-namespace app.Interfaces {
+namespace app.Core {
 	public interface IVehicleRepository {
 		Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
 		void Add(Vehicle vehicle);

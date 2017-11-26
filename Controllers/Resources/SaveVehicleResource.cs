@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using app.Models;
+using app.Core.Models;
 
 namespace app.Controllers.Resources {
 	public class SaveVehicleResource {

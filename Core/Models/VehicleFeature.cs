@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace app.Models {
+namespace app.Core.Models {
 	[Table("VehicleFeatures")]
 	public class VehicleFeature {
 		public int VehicleId { get; set; }

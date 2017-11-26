@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using app.Interfaces;
+using app.Core;
 using app.Persistence.Repositories;
 
 namespace app {

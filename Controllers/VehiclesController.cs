@@ -1,14 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using app.Controllers.Resources;
-using app.Interfaces;
-using app.Models;
-using app.Persistence;
+using app.Core;
+using app.Core.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace app.Controllers {
+namespace app.Controllers
+{
 	[Route("/api/vehicles")]
 	public class VehiclesController : Controller {
 		private readonly IMapper mapper;

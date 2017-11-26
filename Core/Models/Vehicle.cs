@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace app.Models {
+namespace app.Core.Models {
 	[Table("Vehicles")]
 	public class Vehicle {
 		public int Id { get; set; }

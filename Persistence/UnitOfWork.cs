@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using app.Interfaces;
+using app.Core;
 
 namespace app.Persistence {
 	public class UnitOfWork : IUnitOfWork {
