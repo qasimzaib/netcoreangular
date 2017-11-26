@@ -13,8 +13,8 @@ namespace app.Controllers {
 		private readonly IMapper mapper;
 
 		public MakesController(AppDbContext context, IMapper mapper) {
-			this.mapper = mapper;
 			this.context = context;
+			this.mapper = mapper;
 		}
 
 		[HttpGet("/api/makes")]
