@@ -12,11 +12,11 @@ namespace app.Mapping {
 			CreateMap<Model, KeyValuePairResource>();
 			CreateMap<Feature, KeyValuePairResource>();
 			CreateMap<Vehicle, SaveVehicleResource>()
-				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactName }))
+				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactPhone }))
 				.ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => vf.FeatureId)));
 			CreateMap<Vehicle, VehicleResource>()
 				.ForMember(vr => vr.Make, opt => opt.MapFrom(v => v.Model.Make))
-				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactName }))
+				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactPhone }))
 				.ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name })));
 
 			CreateMap<SaveVehicleResource, Vehicle>()
