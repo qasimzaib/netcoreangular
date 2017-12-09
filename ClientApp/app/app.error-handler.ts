@@ -1,14 +1,18 @@
-import { ErrorHandler } from "@angular/core";
+import { ToastyService } from 'ng2-toasty';
+import { ErrorHandler, Inject } from "@angular/core";
 
 export class AppErrorHandler implements ErrorHandler {
+	constructor(@Inject(ToastyService) private toastyService: ToastyService) {
+
+	}
+
 	handleError(error: any): void {
-		console.log("Error");
-		// this.toastyService.error({
-		// 	title: 'Error',
-		// 	msg: 'An unexpected error occured',
-		// 	theme: 'bootstrap',
-		// 	showClose: true,
-		// 	timeout: 5000
-		// });
+		this.toastyService.error({
+			title: 'Error',
+			msg: 'An unexpected error occured',
+			theme: 'bootstrap',
+			showClose: true,
+			timeout: 5000
+		});
 	}
 }
