@@ -5,3 +5,4 @@ npm install webpack -g
 webpack
 ClientApp\app\components> ng g c vehicle-form --module="app.shared.module.ts"
 ClientApp\app\components> ng g c vehicle-list --module="app.shared.module.ts"
+npm install font-awesome --save
