@@ -50,13 +50,16 @@ namespace app.Persistence.Repositories {
 				["id"] = v => v.Id
 			};
 
-			if (vehicleQuery.IsSortAscending) {
-				query = query.OrderBy(columnMap[vehicleQuery.SortBy]);
-			} else {
-				query = query.OrderByDescending(columnMap[vehicleQuery.SortBy]);				
-			}
-
+			query = ApplyOrdering(vehicleQuery, query, columnMap);
 			return await query.ToListAsync();
+		}
+
+		private IQueryable<Vehicle> ApplyOrdering (VehicleQuery vehicleQuery, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnMap) {
+			if (vehicleQuery.IsSortAscending) {
+				return query.OrderBy(columnMap[vehicleQuery.SortBy]);
+			} else {
+				return query.OrderByDescending(columnMap[vehicleQuery.SortBy]);
+			}
 		}
 
 		public void Add(Vehicle vehicle) {
