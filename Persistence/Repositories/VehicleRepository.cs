@@ -4,6 +4,8 @@ using app.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System;
 
 namespace app.Persistence.Repositories {
 	public class VehicleRepository : IVehicleRepository {
@@ -41,20 +43,17 @@ namespace app.Persistence.Repositories {
 				query = query.Where(v => v.Model.Id == vehicleQuery.ModelId.Value);
 			}
 
-			if (vehicleQuery.SortBy == "make") {
-				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
-			}
+			var columnMap = new Dictionary<string, Expression<Func<Vehicle, object>>>() {
+				["make"] = v => v.Model.Make.Name,
+				["model"] = v => v.Model.Name,
+				["contactName"] = v => v.ContactName,
+				["id"] = v => v.Id
+			};
 
-			if (vehicleQuery.SortBy == "model") {
-				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
-			}
-
-			if (vehicleQuery.SortBy == "contactName") {
-				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
-			}
-
-			if (vehicleQuery.SortBy == "id") {
-				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
+			if (vehicleQuery.IsSortAscending) {
+				query = query.OrderBy(columnMap[vehicleQuery.SortBy]);
+			} else {
+				query = query.OrderByDescending(columnMap[vehicleQuery.SortBy]);				
 			}
 
 			return await query.ToListAsync();
