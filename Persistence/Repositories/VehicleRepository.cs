@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System;
+using app.Extensions;
 
 namespace app.Persistence.Repositories {
 	public class VehicleRepository : IVehicleRepository {
@@ -28,7 +29,7 @@ namespace app.Persistence.Repositories {
 				.SingleOrDefaultAsync(v => v.Id == id);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery vehicleQuery) {
+		public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObject) {
 			var query = context.Vehicles
 				.Include(v => v.Model)
 					.ThenInclude(m => m.Make)
@@ -36,30 +37,21 @@ namespace app.Persistence.Repositories {
 					.ThenInclude(vf => vf.Feature)
 				.AsQueryable();
 
-			if (vehicleQuery.MakeId.HasValue) {
-				query = query.Where(v => v.Model.MakeId == vehicleQuery.MakeId.Value);
+			if (queryObject.MakeId.HasValue) {
+				query = query.Where(v => v.Model.MakeId == queryObject.MakeId.Value);
 			}
-			if (vehicleQuery.ModelId.HasValue) {
-				query = query.Where(v => v.Model.Id == vehicleQuery.ModelId.Value);
+			if (queryObject.ModelId.HasValue) {
+				query = query.Where(v => v.Model.Id == queryObject.ModelId.Value);
 			}
 
 			var columnMap = new Dictionary<string, Expression<Func<Vehicle, object>>>() {
 				["make"] = v => v.Model.Make.Name,
 				["model"] = v => v.Model.Name,
-				["contactName"] = v => v.ContactName,
-				["id"] = v => v.Id
+				["contactName"] = v => v.ContactName
 			};
 
-			query = ApplyOrdering(vehicleQuery, query, columnMap);
+			query = query.ApplyOrdering(queryObject, columnMap);
 			return await query.ToListAsync();
-		}
-
-		private IQueryable<Vehicle> ApplyOrdering (VehicleQuery vehicleQuery, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnMap) {
-			if (vehicleQuery.IsSortAscending) {
-				return query.OrderBy(columnMap[vehicleQuery.SortBy]);
-			} else {
-				return query.OrderByDescending(columnMap[vehicleQuery.SortBy]);
-			}
 		}
 
 		public void Add(Vehicle vehicle) {
