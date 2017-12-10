@@ -34,9 +34,10 @@ Raven.config('https://e63d7f9df1d24589a154d53988beb40b@sentry.io/256911').instal
 		FormsModule,
 		ToastyModule.forRoot(),
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: VehicleFormComponent },
+            { path: 'vehicles', component: VehicleListComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
