@@ -26,7 +26,7 @@ namespace app.Persistence.Repositories {
 				.SingleOrDefaultAsync(v => v.Id == id);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter) {
+		public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery vehicleQuery) {
 			var query = context.Vehicles
 				.Include(v => v.Model)
 					.ThenInclude(m => m.Make)
@@ -34,8 +34,27 @@ namespace app.Persistence.Repositories {
 					.ThenInclude(vf => vf.Feature)
 				.AsQueryable();
 
-			if (filter.MakeId.HasValue) {
-				query = query.Where(v => v.Model.MakeId == filter.MakeId.Value);
+			if (vehicleQuery.MakeId.HasValue) {
+				query = query.Where(v => v.Model.MakeId == vehicleQuery.MakeId.Value);
+			}
+			if (vehicleQuery.ModelId.HasValue) {
+				query = query.Where(v => v.Model.Id == vehicleQuery.ModelId.Value);
+			}
+
+			if (vehicleQuery.SortBy == "make") {
+				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
+			}
+
+			if (vehicleQuery.SortBy == "model") {
+				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
+			}
+
+			if (vehicleQuery.SortBy == "contactName") {
+				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
+			}
+
+			if (vehicleQuery.SortBy == "id") {
+				query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
 			}
 
 			return await query.ToListAsync();

@@ -83,9 +83,9 @@ namespace app.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<VehicleResource>> GetVehicles(FilterResource filterResource) {
-			var filter = mapper.Map<FilterResource, Filter>(filterResource);
-			var vehicles = await repository.GetVehicles(filter);
+		public async Task<IEnumerable<VehicleResource>> GetVehicles(VehicleQueryResource vehicleQueryResource) {
+			var vehicleQuery = mapper.Map<VehicleQueryResource, VehicleQuery>(vehicleQueryResource);
+			var vehicles = await repository.GetVehicles(vehicleQuery);
 			return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
 		}
 	}
