@@ -51,6 +51,8 @@ namespace app.Persistence.Repositories {
 			};
 
 			query = query.ApplyOrdering(queryObject, columnMap);
+			query = query.ApplyPaging(queryObject);
+			
 			return await query.ToListAsync();
 		}
 
