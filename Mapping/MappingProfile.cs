@@ -19,6 +19,7 @@ namespace app.Mapping {
 				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactPhone }))
 				.ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name })));
 
+			CreateMap<FilterResource, Filter>();
 			CreateMap<SaveVehicleResource, Vehicle>()
 				.ForMember(v => v.Id, opt => opt.Ignore())
 				.ForMember(v => v.ContactEmail, opt => opt.MapFrom(vr => vr.Contact.Email))

@@ -3,6 +3,7 @@ using app.Core.Models;
 using app.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace app.Persistence.Repositories {
 	public class VehicleRepository : IVehicleRepository {
@@ -25,13 +26,19 @@ namespace app.Persistence.Repositories {
 				.SingleOrDefaultAsync(v => v.Id == id);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicles() {
-			return await context.Vehicles
+		public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter) {
+			var query = context.Vehicles
 				.Include(v => v.Model)
 					.ThenInclude(m => m.Make)
 				.Include(v => v.Features)
 					.ThenInclude(vf => vf.Feature)
-				.ToListAsync();
+				.AsQueryable();
+
+			if (filter.MakeId.HasValue) {
+				query = query.Where(v => v.Model.MakeId == filter.MakeId.Value);
+			}
+
+			return await query.ToListAsync();
 		}
 
 		public void Add(Vehicle vehicle) {
