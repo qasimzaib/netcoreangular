@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using app.Core.Models;
 using app.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace app.Persistence.Repositories {
 	public class VehicleRepository : IVehicleRepository {
@@ -22,6 +23,15 @@ namespace app.Persistence.Repositories {
 				.Include(v => v.Model)
 					.ThenInclude(m => m.Make)
 				.SingleOrDefaultAsync(v => v.Id == id);
+		}
+
+		public async Task<IEnumerable<Vehicle>> GetVehicles() {
+			return await context.Vehicles
+				.Include(v => v.Model)
+					.ThenInclude(m => m.Make)
+				.Include(v => v.Features)
+					.ThenInclude(vf => vf.Feature)
+				.ToListAsync();
 		}
 
 		public void Add(Vehicle vehicle) {

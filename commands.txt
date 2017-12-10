@@ -1,0 +1,7 @@
+dotnet restore
+npm install ng2-toasty --save
+webpack --config webpack.config.vendor.js
+npm install webpack -g
+webpack
+ClientApp\app\components> ng g c vehicle-form --module="app.shared.module.ts"
+ClientApp\app\components> ng g c vehicle-list --module="app.shared.module.ts"

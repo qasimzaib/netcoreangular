@@ -14,6 +14,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 import { VehicleService } from './services/vehicle.service';
 import { AppErrorHandler } from './app.error-handler';
+import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 
 Raven.config('https://e63d7f9df1d24589a154d53988beb40b@sentry.io/256911').install();
 
@@ -24,7 +25,8 @@ Raven.config('https://e63d7f9df1d24589a154d53988beb40b@sentry.io/256911').instal
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        VehicleFormComponent
+        VehicleFormComponent,
+        VehicleListComponent
     ],
     imports: [
         CommonModule,
