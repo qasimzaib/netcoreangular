@@ -1,3 +1,4 @@
+import { PaginationComponent } from './../pagination/pagination.component';
 import { VehicleService } from './../../services/vehicle.service';
 import { Vehicle } from './../../models/vehicle';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,9 @@ import { filterQueryId } from '@angular/core/src/view/util';
 export class VehicleListComponent implements OnInit {
 	vehicles: Vehicle[];
 	makes: KeyValuePair[];
-	query: any = {};
+	query: any = {
+		pageSize: 3
+	};
 	columns = [
 		{ title: 'Id' },
 		{ title: 'Make', key: 'make', isSortable: true },
@@ -51,6 +54,11 @@ export class VehicleListComponent implements OnInit {
 			this.query.sortBy = columnName;
 			this.query.isSortAscending = true;
 		}
+		this.populateVehicles();
+	}
+
+	onPageChange(page: any) {
+		this.query.page = page;
 		this.populateVehicles();
 	}
 }
