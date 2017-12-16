@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using app.Core;
 using app.Persistence.Repositories;
+using app.Core.Models;
 
 namespace app {
 	public class Startup {
@@ -23,6 +24,7 @@ namespace app {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
 			services.AddScoped<IVehicleRepository, VehicleRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAutoMapper();
