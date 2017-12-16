@@ -6,6 +6,33 @@
 	</ul>
 
 	<div class="tab-content" *ngIf="vehicle">
+		<div role="tabpanel" class="tab-pane active" id="basic">
+			<h3>Details</h3>
+			<ul>
+				<li>Make: {{ vehicle.make.name }}</li>
+				<li>Model: {{ vehicle.model.name }}</li>
+				<li>Reg. status: {{ vehicle.isRegistered ? 'True' : 'False' }}</li>
+			</ul>
+			<h3>Features</h3>
+			<ul>
+				<li *ngFor="let f of vehicle.features">{{ f.name }}</li>
+			</ul>
+			<h3>Contact</h3>
+			<ul>
+				<li>Name: {{ vehicle.contact.name }}</li>
+				<li>Phone: {{ vehicle.contact.phone }}</li>
+				<li>Email: {{ vehicle.contact.email }}</li>
+			</ul>
 
-	</div>
+			<br />
+			<p>
+				<a class="btn btn-primary" [routerLink]="['/vehicles/edit/', vehicle.id]">Edit</a>
+				<button class="btn btn-danger" (click)="delete()">Delete</button>
+				<a class="btn btn-default" [routerLink]="['/vehicles']">View All Vehicles</a>
+			</p>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="photos">
+			<h3>Photos</h3>
+		</div>
+	</div>	
 </div>
