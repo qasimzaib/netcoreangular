@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,14 +19,22 @@ namespace app.Controllers {
 		private readonly IMapper mapper;
 		private readonly IUnitOfWork unitOfWork;
 		private readonly IVehicleRepository vehicleRepository;
+		private readonly IPhotoRepository photoRepository;
 		private readonly PhotoSettings photoSettings;
 
-		public PhotosController(IHostingEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<PhotoSettings> options) {
+		public PhotosController(IHostingEnvironment host, IVehicleRepository vehicleRepository, IPhotoRepository photoRepository, IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<PhotoSettings> options) {
 			this.host = host;
 			this.vehicleRepository = vehicleRepository;
+			this.photoRepository = photoRepository;
 			this.unitOfWork = unitOfWork;
 			this.mapper = mapper;
 			this.photoSettings = options.Value;
+		}
+
+		[HttpGet]
+		public async Task<IEnumerable<PhotoResource>> GetPhotos(int vehicleId) {
+			var photos = await photoRepository.GetPhotos(vehicleId);
+			return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
 		}
 
 		[HttpPost]
