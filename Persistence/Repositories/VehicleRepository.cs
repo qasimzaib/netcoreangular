@@ -29,7 +29,8 @@ namespace app.Persistence.Repositories {
 				.SingleOrDefaultAsync(v => v.Id == id);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObject) {
+		public async Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery queryObject) {
+			var result = new QueryResult<Vehicle>();
 			var query = context.Vehicles
 				.Include(v => v.Model)
 					.ThenInclude(m => m.Make)
@@ -51,9 +52,10 @@ namespace app.Persistence.Repositories {
 			};
 
 			query = query.ApplyOrdering(queryObject, columnMap);
+			result.TotalItems = await query.CountAsync();
 			query = query.ApplyPaging(queryObject);
-			
-			return await query.ToListAsync();
+			result.Items = await query.ToListAsync();
+			return result;
 		}
 
 		public void Add(Vehicle vehicle) {

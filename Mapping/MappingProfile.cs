@@ -7,6 +7,8 @@ using AutoMapper;
 namespace app.Mapping {
 	public class MappingProfile : Profile {
 		public MappingProfile() {
+			// Domain to API
+			CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
 			CreateMap<Make, MakeResource>();
 			CreateMap<Make, KeyValuePairResource>();
 			CreateMap<Model, KeyValuePairResource>();
@@ -19,6 +21,7 @@ namespace app.Mapping {
 				.ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Email = v.ContactEmail, Name = v.ContactName, Phone = v.ContactPhone }))
 				.ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name })));
 
+			// API to Domain
 			CreateMap<VehicleQueryResource, VehicleQuery>();
 			CreateMap<SaveVehicleResource, Vehicle>()
 				.ForMember(v => v.Id, opt => opt.Ignore())

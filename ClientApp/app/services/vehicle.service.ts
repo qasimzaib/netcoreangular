@@ -21,7 +21,7 @@ export class VehicleService {
 			.map(res => res.json());
 	}
 	toQueryString(obj: any) {
-		var parts = [];
+		var parts: any[] = [];
 		for (var property in obj) {
 			var value = obj[property];
 			if (value != null && value != undefined) {
