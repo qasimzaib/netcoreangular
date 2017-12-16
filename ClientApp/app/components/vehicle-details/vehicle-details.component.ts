@@ -65,23 +65,33 @@ export class VehicleDetailsComponent implements OnInit {
 	}
 
 	uploadPhoto() {
-		var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
-		
 		this.progressService.startTracking()
-			.subscribe(
-				progress => {
-					console.log(progress);
-					this.zone.run(() => {
-						this.progress = progress;
-					});
-				},
-				() => { this.progress = null; }
-			);
+		.subscribe(
+			progress => {
+				console.log(progress);
+				this.zone.run(() => {
+					this.progress = progress;
+				});
+			},
+			() => { this.progress = null; }
+		);
 		
-		this.photoService.upload(this.vehicleId, nativeElement.files![0])
+		var nativeElement = this.fileInput.nativeElement;
+		var file = nativeElement.files[0];
+		nativeElement.value = '';
+		this.photoService.upload(this.vehicleId, file)
 			.subscribe(
 				photo => {
 					this.photos.push(photo);
+				},
+				err => {
+					this.toastyService.error({
+						title: 'Error',
+						msg: err.text(),
+						theme: 'bootstrap',
+						showClose: true,
+						timeout: 5000
+					});
 				}
 			);
 	}
