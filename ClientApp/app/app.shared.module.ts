@@ -13,6 +13,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 import { VehicleService } from './services/vehicle.service';
+import { PhotoService } from './services/photo.service';
 import { AppErrorHandler } from './app.error-handler';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -51,7 +52,8 @@ Raven.config('https://e63d7f9df1d24589a154d53988beb40b@sentry.io/256911').instal
 	],
 	providers: [
 		{provide: ErrorHandler, useClass: AppErrorHandler},
-		VehicleService
+		VehicleService,
+		PhotoService
 	]
 })
 export class AppModuleShared {
