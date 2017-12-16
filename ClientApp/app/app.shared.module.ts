@@ -1,8 +1,9 @@
+import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 import * as Raven from 'raven-js';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, BrowserXhr } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 
@@ -52,8 +53,10 @@ Raven.config('https://e63d7f9df1d24589a154d53988beb40b@sentry.io/256911').instal
 	],
 	providers: [
 		{provide: ErrorHandler, useClass: AppErrorHandler},
+		{provide: BrowserXhr, useClass: BrowserXhrWithProgress},
 		VehicleService,
-		PhotoService
+		PhotoService,
+		ProgressService
 	]
 })
 export class AppModuleShared {
